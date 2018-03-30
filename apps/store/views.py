@@ -25,7 +25,7 @@ def index(request):
 def product_list(request,category_slug = None):
 	categoria = None
 	categorias = Categoria.objects.all()
-	productos = Producto.objects.filter(stock > 0)
+	productos = Producto.objects.filter(stock__gt = 0)
 	if category_slug:
 		categoria = get_object_or_404(Categoria,slug = category_slug)
 		productos = productos.filter(idCategoria = categoria)
@@ -36,7 +36,7 @@ def product_list(request,category_slug = None):
 
 
 def product_detail(request,id,slug):
-	producto = get_object_or_404(Producto, id = id,slug = slug, stock > 0)
+	producto = get_object_or_404(Producto, id = id,slug = slug, stock__gt=0)
 	producto_carrito = CartAddProductForm()
 	return render(request,
 					'apps/store/producto/detalle',
