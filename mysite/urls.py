@@ -15,10 +15,18 @@ Including another URLconf
 """
 from django.urls import include, path
 from django.contrib import admin
+from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('apps/store', include('apps.store.urls')),
     path('admin/', admin.site.urls),
     path('apps/store', admin.site.urls),
     path('admin_config', include('admin_config.urls')),
+    url(r'^', include('apps.store.urls')),
+    
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
