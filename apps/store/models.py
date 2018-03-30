@@ -15,7 +15,11 @@ class Usuario(models.Model):
 
 
 class Categoria(models.Model):
-	descripcion = models.CharField(max_length = 100)
+        descripcion = models.CharField(max_length = 100)
+	
+        def __str__(self):
+                return self.descripcion
+	
 
 class Producto(models.Model):
 	nombre = models.CharField(max_length = 50)
@@ -24,6 +28,9 @@ class Producto(models.Model):
 	oferta = models.BooleanField()
 	codigo = models.IntegerField()
 	idCategoria = models.ForeignKey(Categoria, on_delete = models.CASCADE)
+	imagen = models.ImageField(upload_to='products/%Y/%m/%d', blank = True)
+	def __str__(self):
+                return self.nombre
 
 class Carrito(models.Model):
 	idUsuario = models.ForeignKey(Usuario, on_delete = models.CASCADE)

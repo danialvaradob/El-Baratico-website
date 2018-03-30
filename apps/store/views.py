@@ -9,6 +9,7 @@ def index(request):
     product_list = Producto.objects.order_by('-id')
     context = {'product_list': product_list}
     return render(request, 'store/index.html', context)
+    #return render(request, 'store/image_test.html', context)
 
 ''' 
 def index(request):

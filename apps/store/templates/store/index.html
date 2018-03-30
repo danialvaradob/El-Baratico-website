@@ -2,6 +2,7 @@
     <ul>
     {% for producto in product_list %}
         <li><a href="/apps/store/{{ producto.id }}/">{{ producto.nombre }}</a></li>
+		<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="500" height="377">
     {% endfor %}
     </ul>
 {% else %}
