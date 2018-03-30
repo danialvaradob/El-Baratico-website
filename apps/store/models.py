@@ -15,22 +15,40 @@ class Usuario(models.Model):
 
 
 class Categoria(models.Model):
-        descripcion = models.CharField(max_length = 100)
-	
+        descripcion = models.CharField(max_length = 100, db_index = True)
+		slug = models.SlugField(max_length = 100, db_index = True)
+
+		class Meta:
+			ordering =('descripcion',)
+			verbose_name = 'categoria'
+			verbose_name_plural = 'categorias'
+
         def __str__(self):
                 return self.descripcion
-	
+
+        def get_absolute_url(self):
+        	return reverse('store:product_list_by_category',args=[self.slug])
 
 class Producto(models.Model):
-	nombre = models.CharField(max_length = 50)
+	nombre = models.CharField(max_length = 50, db_index = True)
 	descripcion = models.CharField(max_length = 250)
-	precio = models.DecimalField()
+	precio = models.DecimalField(max_digits = 10,decimal_places = 2)
 	oferta = models.BooleanField()
 	codigo = models.IntegerField()
+	stock = models.PositiveIntegerField()
+	slug = models.SlugField(max_length = 50, db_index = True)
 	idCategoria = models.ForeignKey(Categoria, on_delete = models.CASCADE)
 	imagen = models.ImageField(upload_to='products/%Y/%m/%d', blank = True)
+
+	class Meta:
+		ordering = ('-nombre')
+		index_together = (('id','slug'),)
+
 	def __str__(self):
                 return self.nombre
+
+    def get_absolute_url(self):
+    	return reverse('store:detalle_producto',args = [self.id,self.slug])
 
 class Carrito(models.Model):
 	idUsuario = models.ForeignKey(Usuario, on_delete = models.CASCADE)
