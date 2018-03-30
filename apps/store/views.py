@@ -1,10 +1,25 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Producto
+from django.template import loader
 # Create your views here.
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
 
+def index(request):
+    product_list = Producto.objects.order_by('-id')
+    context = {'product_list': product_list}
+    return render(request, 'store/index.html', context)
+
+''' 
+def index(request):
+    product_list = Producto.objects.order_by('-id')
+    template = loader.get_template('store/index.html')
+    context = {
+        'product_list': product_list,
+    }
+    return HttpResponse(template.render(context, request))
+
+'''
 
 def detail(request, producto_id):
     return HttpResponse("You're looking at question %s." % producto_id)
