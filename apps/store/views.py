@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Producto
+from .models import Producto,Categoria
 from django.template import loader
 # Create your views here.
 
@@ -21,6 +21,29 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 '''
+
+def product_list(request,category_slug = None):
+	categoria = None
+	categorias = Categoria.objects.all()
+	productos = Producto.objects.filter(stock > 0)
+	if category_slug:
+		categoria = get_object_or_404(Categoria,slug = category_slug)
+		productos = productos.filter(idCategoria = categoria)
+
+	return render(request,'apps/store/producto/lista',{'idCategoria':categoria,
+															'categorias':categorias,
+															'productos':productos})
+
+
+def product_detail(request,id,slug):
+	producto = get_object_or_404(Producto, id = id,slug = slug, stock > 0)
+	producto_carrito = CartAddProductForm()
+	return render(request,
+					'apps/store/producto/detalle',
+					{'producto':producto,
+					'producto_carrito':producto_carrito})
+
+
 
 def detail(request, producto_id):
     return HttpResponse("You're looking at question %s." % producto_id)

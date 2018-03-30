@@ -39,7 +39,7 @@ class Producto(models.Model):
 	slug = models.SlugField(max_length = 50, db_index = True)
 	idCategoria = models.ForeignKey(Categoria, on_delete = models.CASCADE)
 	imagen = models.ImageField(upload_to='products/%Y/%m/%d', blank = True)
-
+ 	
 	class Meta:
 		ordering = ('-nombre')
 		index_together = (('id','slug'),)
@@ -48,7 +48,7 @@ class Producto(models.Model):
                 return self.nombre
 
     def get_absolute_url(self):
-    	return reverse('store:detalle_producto',args = [self.id,self.slug])
+    	return reverse('store:product_detail',args = [self.id,self.slug])
 
 class Carrito(models.Model):
 	idUsuario = models.ForeignKey(Usuario, on_delete = models.CASCADE)
