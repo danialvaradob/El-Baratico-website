@@ -1,8 +1,8 @@
-{% if product_list %}
+{% if productos %}
     <ul>
-    {% for producto in product_list %}
+    {% for producto in productos %}
         <li><a href="/apps/store/{{ producto.id }}/">{{ producto.nombre }}</a></li>
-		<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="500" height="377">
+		<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="200" height="200">
     {% endfor %}
     </ul>
 {% else %}
