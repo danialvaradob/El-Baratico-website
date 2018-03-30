@@ -24,7 +24,7 @@ class Categoria(models.Model):
 class Producto(models.Model):
 	nombre = models.CharField(max_length = 50)
 	descripcion = models.CharField(max_length = 250)
-	precio = models.IntegerField()
+	precio = models.DecimalField()
 	oferta = models.BooleanField()
 	codigo = models.IntegerField()
 	idCategoria = models.ForeignKey(Categoria, on_delete = models.CASCADE)
