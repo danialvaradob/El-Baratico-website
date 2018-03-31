@@ -59,19 +59,20 @@ li a:hover:not(.active) {
   <li><a href="#contact">Contact</a></li>
   <li style="float:right"><a class="active" href="#about">About</a></li>
 </ul>
-<img class="logo-img" src="/apps/store/static/baraticoCLOUD.gif" alt="El Baratico" width="319" height="479">
+<img class="logo-img" src="/apps/store/static/baraticoCLOUD.gif" alt="El Baratico" width="18%" height="50%">
 </body>
 
 <body>
-<h1 style="color:blue;margin-left:10px;">Productos</h1>
+	<h1 style="color:blue;margin-left:10px;"></h1>
+<img class="logo-img" src="/apps/store/static/ProductosBanner6.png" alt="Productos" width="500" height="100">
 {% if productos %}
     {% for producto in productos %}
 		<div class="item">
 			<a href="{{ producto.get_absolute_url }}">
 				<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="200" height="200">
 			</a>
-			<a href="/apps/store/{{ producto.id }}/">{{ producto.nombre }}</a><br>
-			₡{{ producto.precio }}
+			<a href="/apps/store/{{ producto.id }}/">{{ producto.nombre }}</a>
+			₡{{ producto.precio }}<br>
 		</div>
 		
     {% endfor %}
