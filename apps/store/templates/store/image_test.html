@@ -1,6 +1,10 @@
-<html><body>
-<form action="{0}" method="POST" enctype="multipart/form-data">
-  Upload File: <input type="file" name="file"><br>
-  <input type="submit" name="submit" value="Submit">
-</form>
-</body></html>""".format(upload_url))
+{% if productos %}
+    <ul>
+    {% for producto in productos %}
+        <li><a href="/apps/store/{{ producto.id }}/">{{ producto.nombre }}</a></li>
+		<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="200" height="200">
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No products are available.</p>
+{% endif %}

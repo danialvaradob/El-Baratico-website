@@ -24,7 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('apps/store', admin.site.urls),
     path('admin_config', include('admin_config.urls')),
-    url(r'^', include('apps.store.urls')),
+    #path('apps/store', include('apps.store.urls')),
+    url(r'^', include(('apps.store.urls', 'store'), namespace='store')),
     
 ]
 

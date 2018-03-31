@@ -1,10 +1,91 @@
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    margin-bottom: 0
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+.logo-img {
+	display:inline-block;
+    float:left
+    position:absolute;
+    left:10px;
+    top:10px;
+    margin: 0px 15px 15px 0px;
+    float: left;
+}
+
+</style>
+
+
+</head>
+<body>
+
+<ul>
+  
+  <li><a href="#home">Home</a></li>
+  <li><a href="#news">News</a></li>
+  <li><a href="#contact">Contact</a></li>
+  <li style="float:right"><a class="active" href="#about">About</a></li>
+</ul>
+<img class="logo-img" src="/apps/store/static/baraticoCLOUD.gif" alt="El Baratico" width="319" height="479">
+</body>
+
+<body>
+<h1 style="color:blue;margin-left:10px;">Productos</h1>
 {% if productos %}
-    <ul>
     {% for producto in productos %}
-        <li><a href="/apps/store/{{ producto.id }}/">{{ producto.nombre }}</a></li>
-		<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="200" height="200">
+		<div class="item">
+			<a href="{{ producto.get_absolute_url }}">
+				<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="200" height="200">
+			</a>
+			<a href="/apps/store/{{ producto.id }}/">{{ producto.nombre }}</a><br>
+			₡{{ producto.precio }}
+		</div>
+		
     {% endfor %}
-    </ul>
+    
 {% else %}
     <p>No products are available.</p>
 {% endif %}
+
+</body>
+
+
+
+</html>
+
+
+
+
