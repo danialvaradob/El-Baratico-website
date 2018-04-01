@@ -1,18 +1,12 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
+from django.dispatch import receiver
 
 
 
-class Tipo_Usuario(models.Model):
-        descripcion = models.CharField(max_length = 100)
-
-class Usuario(models.Model):
-        idTipoUsuario = models.ForeignKey(Tipo_Usuario, on_delete = models.CASCADE)
-        username = models.CharField(max_length = 20)
-        password = models.CharField(max_length = 30)
-        email = models.EmailField()
-        nombre = models.CharField(max_length = 50)
-        apellidos = models.CharField(max_length = 100)
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,unique=True)
 
 
 class Categoria(models.Model):
@@ -52,7 +46,7 @@ class Producto(models.Model):
                 return reverse('store:product_detail',args = [self.id,self.slug])
 
 class Carrito(models.Model):
-        idUsuario = models.ForeignKey(Usuario, on_delete = models.CASCADE)
+        idUsuario = models.ForeignKey(UserProfile, on_delete = models.CASCADE)
 
 class Carrito_Detalle(models.Model):
         idCarrito = models.ForeignKey(Carrito, on_delete = models.CASCADE)
@@ -62,7 +56,7 @@ class Carrito_Detalle(models.Model):
 
 
 class Historial(models.Model):
-        idUsuario = models.ForeignKey(Usuario, on_delete = models.CASCADE)
+        idUsuario = models.ForeignKey(UserProfile, on_delete = models.CASCADE)
         fecha = models.DateField()
 
 
