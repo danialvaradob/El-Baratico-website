@@ -64,25 +64,52 @@ li a:hover:not(.active) {
 </body>
 
 <body>
+	<div
 	<h1 style="color:blue;margin-left:10px;"></h1>
-<img class="logo-img" src="/apps/store/static/ProductosBanner6.png" alt="Productos" width="500" height="100">
+<img class="logo-img" src="/apps/store/static/ProductosBanner6.png" alt="Productos" width="500" height="100"><br>
+</div>
 {% if productos %}
     {% for producto in productos %}
+		{% if not producto.oferta %}
 		<div class="item">
-			<a href="{{ producto.get_absolute_url }}">
+			<a href="{% url 'store:detail' producto.id %}">
 				<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="200" height="200">
 			</a>
 			<a href="{% url 'store:detail' producto.id %}">{{ producto.nombre }}</a>
-			₡{{ producto.precio }}<br>
+			₡{{ producto.precio }}
 		</div>
-		
+		{% else %}
+		{% endif %}
     {% endfor %}
+  
+{% for producto in productos %}
+	{% if producto.oferta %}
+		<body>
+			<div
+			<h1 style="color:blue;margin-left:10px;"></h1>
+		<img class="logo-img" src="/apps/store/static/OfertasBanner.png" alt="Productos" width="500" height="100"><br>
+		</div>
+		</body>
+
+			<div class="offer_item">
+			<a href="{% url 'store:detail' producto.id %}">
+				<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="200" height="200">
+			</a>
+			<a href="{% url 'store:detail' producto.id %}">{{ producto.nombre }}</a>
+			₡{{ producto.precio }} 
+	{% else %}
+	{% endif %}
+{% endfor %}
+   
+
+
     
 {% else %}
     <p>No products are available.</p>
 {% endif %}
 
-</body>
+
+
 
 
 
