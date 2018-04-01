@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Producto,Categoria
-from django.template import loader
-from django.urls import reverse
 from django.views import generic
 
 # Create your views here.
@@ -61,7 +59,7 @@ def login(request):
     x = 10
 
 def sign_up(request):
-
+    X = 10
 
 def carrito_detalle(request,id,slug):
 	x = 0
