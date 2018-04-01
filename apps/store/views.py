@@ -31,7 +31,7 @@ def product_list(request,category_slug = None):
         categoria = get_object_or_404(Categoria,slug = category_slug)
         productos = productos.filter(idCategoria = categoria)
 
-    return render(request,'store/index',{'idCategoria':categoria,
+    return render(request,'store/index.html',{'idCategoria':categoria,
                                                             'categorias':categorias,
                                                             'productos':productos})
 
