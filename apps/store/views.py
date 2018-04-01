@@ -31,18 +31,17 @@ def product_list(request,category_slug = None):
         categoria = get_object_or_404(Categoria,slug = category_slug)
         productos = productos.filter(idCategoria = categoria)
 
-    return render(request,'store/index',{'idCategoria':categoria,
+    return render(request,'store/index.html',{'idCategoria':categoria,
                                                             'categorias':categorias,
                                                             'productos':productos})
 
 
 def product_detail(request,id,slug):
     producto = get_object_or_404(Producto, id = id,slug = slug, stock__gt=0)
-    producto_carrito = CartAddProductForm()
+    
     return render(request,
-                    'apps/store/producto/detalle',
-                    {'producto':producto,
-                    'producto_carrito':producto_carrito})
+                    'apps/store/producto/detail.html',
+                    {'producto':producto})
 
 
 
@@ -63,4 +62,20 @@ def sign_up(request):
 
 def carrito_detalle(request,id,slug):
 	x = 0
+
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})
 
