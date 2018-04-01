@@ -60,7 +60,7 @@ def product_detail(request,id,slug):
 
 def detail(request, producto_id):
     producto = get_object_or_404(Producto, pk=producto_id)
-    return render(request, 'apps/store/detail.html', {'producto': producto})
+    return render(request, 'store/detail.html', {'producto': producto})
 
 class DetailView(generic.DetailView):
     model = Producto
