@@ -30,7 +30,7 @@ def product_list(request,category_slug = None):
         categoria = get_object_or_404(Categoria,slug = category_slug)
         productos = productos.filter(idCategoria = categoria)
 
-    return render(request,'store/index.html',{'idCategoria':categoria,
+    return render(request,'store/index',{'idCategoria':categoria,
                                                             'categorias':categorias,
                                                             'productos':productos})
 
@@ -46,11 +46,10 @@ def product_detail(request,id,slug):
 
 
 def detail(request, producto_id):
-    return HttpResponse("You're looking at question %s." % producto_id)
+    producto = get_object_or_404(Producto, pk=producto_id)
+    return render(request, 'apps/store/detail.html', {'producto': producto})
 
-def results(request, producto_id):
-    response = "You're looking at the results of question %s."
-    return HttpResponse(response % producto_id)
 
-def vote(request, producto_id):
-    return HttpResponse("You're voting on question %s." % producto_id)
+def carrito_detalle(request,id,slug):
+	x = 0
+

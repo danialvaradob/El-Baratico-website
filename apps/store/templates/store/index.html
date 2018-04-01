@@ -71,7 +71,7 @@ li a:hover:not(.active) {
 			<a href="{{ producto.get_absolute_url }}">
 				<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="200" height="200">
 			</a>
-			<a href="/apps/store/{{ producto.id }}/">{{ producto.nombre }}</a>
+			<a href="{% url 'store:detail' producto.id %}">{{ producto.nombre }}</a>
 			₡{{ producto.precio }}<br>
 		</div>
 		
