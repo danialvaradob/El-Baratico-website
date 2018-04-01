@@ -27,6 +27,7 @@ urlpatterns = [
     #path('apps/store', include('apps.store.urls')),
     url(r'^', include(('apps.store.urls', 'store'), namespace='store')),
     
+    
 ]
 
 if settings.DEBUG:
