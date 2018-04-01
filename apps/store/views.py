@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Producto,Categoria
 from django.template import loader
+from django.urls import reverse
+from django.views import generic
+
 # Create your views here.
 
 
@@ -48,6 +51,16 @@ def product_detail(request,id,slug):
 def detail(request, producto_id):
     producto = get_object_or_404(Producto, pk=producto_id)
     return render(request, 'apps/store/detail.html', {'producto': producto})
+
+class DetailView(generic.DetailView):
+    model = Producto
+    template_name = 'apps/store/detail.html'
+
+
+def login(request):
+    x = 10
+
+def sign_up(request):
 
 
 def carrito_detalle(request,id,slug):

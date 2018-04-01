@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin_config', include('admin_config.urls')),
     #path('apps/store', include('apps.store.urls')),
     url(r'^', include(('apps.store.urls', 'store'), namespace='store')),
+    url(r'^login/$', auth_views.login, {'templates/store': 'apps/store/login.html'}, name='login'),
     
 ]
 
