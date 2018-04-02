@@ -44,6 +44,12 @@ def product_detail(request,id,slug):
                     {'producto':producto})
 
 
+def cart_list(request):
+    userID = None
+    if request.user.is_authenticated():
+        userID = request.user.id
+
+
 
 def detail(request, producto_id):
     producto = get_object_or_404(Producto, pk=producto_id)
@@ -63,7 +69,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             auth_login(request, user)
-            return redirect('home')
+            return redirect('apps/store/index')
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
