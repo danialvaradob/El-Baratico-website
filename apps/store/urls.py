@@ -6,8 +6,8 @@ from . import views
 
 
 urlpatterns = [
-
-    url(r'^login/$', views.login, name='login'),
+	url(r'^$',views.home, name='home'),
+    url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
     url(r'^signup/$', views.signup, name='signup'),
     path('<int:producto_id>/', views.detail, name='detail'),
     path('<int:producto_id>/', views.DetailView.as_view(), name='detail'),
@@ -17,6 +17,4 @@ urlpatterns = [
 
 ]
 
-
-
-
+    

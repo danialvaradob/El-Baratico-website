@@ -5,10 +5,10 @@ from django.dispatch import receiver
 
 
 
-class UserProfile(models.Model):
+'''class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,unique=True)
 
-
+'''
 class Categoria(models.Model):
         descripcion = models.CharField(max_length = 100, db_index = True)
         slug = models.SlugField(max_length = 100, db_index = True)
@@ -46,7 +46,7 @@ class Producto(models.Model):
                 return reverse('store:product_detail',args = [self.id,self.slug])
 
 class Carrito(models.Model):
-        idUsuario = models.ForeignKey(UserProfile, on_delete = models.CASCADE)
+        idUsuario = models.ForeignKey(User, on_delete = models.CASCADE)
 
 class Carrito_Detalle(models.Model):
         idCarrito = models.ForeignKey(Carrito, on_delete = models.CASCADE)
@@ -56,7 +56,7 @@ class Carrito_Detalle(models.Model):
 
 
 class Historial(models.Model):
-        idUsuario = models.ForeignKey(UserProfile, on_delete = models.CASCADE)
+        idUsuario = models.ForeignKey(User, on_delete = models.CASCADE)
         fecha = models.DateField()
 
 
