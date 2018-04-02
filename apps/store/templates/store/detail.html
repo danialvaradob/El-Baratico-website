@@ -72,12 +72,17 @@ li a:hover:not(.active) {
 
 	<div class="item"><br>
 		<a href="{% url 'store:detail' producto.id %}">
-			<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="350" height="350">
+			<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="200" height="200">
 		</a>
 		<font size="2">
 		<a href="{% url 'store:detail' producto.id %}">{{ producto.nombre }}</a>
 		₡{{ producto.precio }}
+        <a>Productos disponibles {{producto.stock}}</a>
+
 	</div>
+    <div class = "item"><br>
+        <a>Agregar al carrito</a> 
+    </div>
 
 
 </html>

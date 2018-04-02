@@ -126,7 +126,9 @@ USE_TZ = True
 #STATIC_URL = '/static/'
 STATIC_URL = '/apps/store/static/'
 
-LOGIN_REDIRECT_URL = 'store/index.html'
+#LOGIN_REDIRECT_URL = 'store/index.html'
+LOGIN_REDIRECT_URL = 'home.html'
+
 MEDIA_URL = '/products/'
 MEDIA_ROOT = os.path.join('products/',BASE_DIR)
 
