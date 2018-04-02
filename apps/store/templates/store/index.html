@@ -5,8 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-
+<!-------------------------MENU STYLE------------------------>
 <style>
 ul {
     list-style-type: none;
@@ -16,11 +15,9 @@ ul {
     background-color: #333;
     margin-bottom: 0
 }
-
 li {
     float: left;
 }
-
 li a {
     display: inline-block;
     color: white;
@@ -28,11 +25,9 @@ li a {
     padding: 14px 16px;
     text-decoration: none;
 }
-
 li a:hover:not(.active) {
     background-color: #111;
 }
-
 .active {
     background-color: #4CAF50;
 }
@@ -41,80 +36,178 @@ li a:hover:not(.active) {
     float:left
     position:absolute;
     left:10px;
-    top:10px;
-    margin: 0px 15px 15px 0px;
+    top:1px;
+    margin: 0px 1px 1px 0px;
     float: left;
 }
-
 </style>
+<!------------------------END MENU STYLE------------------------>
+
+
+
+<!-------------------------GRID STYLE------------------------>
+<style>
+.item1 { grid-area: header; }
+.item2 { grid-area: menu; }
+.item3 { grid-area: main; }
+.item4 { grid-area: right; }
+.item5 { grid-area: footer; }
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'header header header header header header'
+    'menu main main main main main'
+    'menu footer footer footer footer footer';
+  grid-gap: 1px;
+  background-color: rgba(255, 255, 255);
+  padding: 10px;
+}
+.grid-container > div {
+  background-color: rgba(255, 255, 255);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
+</style>
+<!-------------------------END GRID STYLE------------------------>
+
+
+<!-------------------------PRODUCT GRID STYLE------------------------>
+<style>
+.grid-container2 {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: rgba(255, 255, 255);
+  padding: 10px;
+}
+.grid-item2 {
+  background-color: rgba(255, 255, 255);
+  border: 0px solid rgba(0, 0, 0);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+</style>
+<!-------------------------END PRODUCT GRID STYLE------------------------>
+
+
 
 
 </head>
 <body>
 
-<ul>
-  
+
+<div class="grid-container">
+  <div class="item1"><ul>
   <li><a href="#home">Home</a></li>
   <li><a href="#news">News</a></li>
   <li><a href="#contact">Contact</a></li>
   <li><a href="#ingresar">Ingresar</a></li>
-  <li style="float:right"><a class="active" href="#about">About</a></li>
+  <li style="float:right"><a class="active" href="#carrito">Carrito</a></li>
 </ul>
-<img class="logo-img" src="/apps/store/static/baraticoCLOUD.gif" alt="El Baratico" width="18%" height="50%">
+</div>
+
+
+  <div class="item2"><img class="logo-img" src="/apps/store/static/baraticoCLOUD.gif" alt="El Baratico" width="400" height="500"></div>
+  <div class="item3"><img class="logo-img" src="/apps/store/static/ProductosBanner6.png" alt="Productos" width="350" height="75"><br></div>  
+  <!--div class="item4"><img class="logo-img" src="/apps/store/static/OfertasBanner.png" alt="Productos" width="500" height="100"><br></div-->
+  <div class="item5"><div class="grid-container2">
+	      {% if productos %}
+			{% for producto in productos %}
+				{% if not producto.oferta %}
+				<div class="grid-item2">
+					<a href="{% url 'store:detail' producto.id %}">
+						<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="200" height="200">
+					</a><br>
+					<a href="{% url 'store:detail' producto.id %}">{{ producto.nombre }}</a>
+					₡{{ producto.precio }}
+				</div>
+				{% else %}
+				{% endif %}
+			{% endfor %}
+		 
+	
+		{% else %}
+			<p>No products are available.</p>
+		{% endif %}
+		  </div>
+  </div>
+</div>
+
+
+<div class="grid-container">
+  <div class="item1">
+</div>
+
+
+  <div class="item2"><img class="logo-img" src="/apps/store/static/baraticoCLOUD_NULL.gif" alt="El Baratico" width="400" height="500"></div>
+  <div class="item3"><img class="logo-img" src="/apps/store/static/OfertasBanner.png" alt="Productos" width="300" height="50"><br></div>  
+  <!--div class="item4"><img class="logo-img" src="/apps/store/static/OfertasBanner.png" alt="Productos" width="500" height="100"><br></div-->
+  <div class="item5"><div class="grid-container2">
+	      {% if productos %}
+			{% for producto in productos %}
+				{% if producto.oferta %}
+				<div class="grid-item2">
+					<a href="{% url 'store:detail' producto.id %}">
+						<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="200" height="200">
+					</a><br>
+					<a href="{% url 'store:detail' producto.id %}">{{ producto.nombre }}</a>
+					₡{{ producto.precio }}
+				</div>
+				{% else %}
+				{% endif %}
+			{% endfor %}
+		 
+	
+		{% else %}
+			<p>No products are available.</p>
+		{% endif %}
+		  </div>
+  </div>
+</div>
+
+
 </body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+
+
+
+
+</head>
+
 
 <body>
-	<div
-	<h1 style="color:blue;margin-left:10px;"></h1>
-<img class="logo-img" src="/apps/store/static/ProductosBanner6.png" alt="Productos" width="500" height="100"><br>
-</div>
-{% if productos %}
-    {% for producto in productos %}
-		{% if not producto.oferta %}
-		<div class="item">
-			<a href="{% url 'store:detail' producto.id %}">
-				<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="200" height="200">
-			</a>
-			<a href="{% url 'store:detail' producto.id %}">{{ producto.nombre }}</a>
-			₡{{ producto.precio }}
-		</div>
-		{% else %}
-		{% endif %}
-    {% endfor %}
-  
-{% for producto in productos %}
-	{% if producto.oferta %}
-		<body>
-			<div
-			<h1 style="color:blue;margin-left:10px;"></h1>
-		<img class="logo-img" src="/apps/store/static/OfertasBanner.png" alt="Productos" width="500" height="100"><br>
-		</div>
-		</body>
-
-			<div class="offer_item">
-			<a href="{% url 'store:detail' producto.id %}">
-				<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="200" height="200">
-			</a>
-			<a href="{% url 'store:detail' producto.id %}">{{ producto.nombre }}</a>
-			₡{{ producto.precio }} 
-	{% else %}
-	{% endif %}
-{% endfor %}
-   
-
-
-    
-{% else %}
-    <p>No products are available.</p>
-{% endif %}
-
-
 
 
 
 
 </html>
 
+<!--
+		{% for producto in productos %}
+			{% if producto.oferta %}
+				<body>
+
+				</body>
+
+					<div class="grid-item2">
+					<a href="{% url 'store:detail' producto.id %}">
+						<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="200" height="200">
+					</a>
+					<a href="{% url 'store:detail' producto.id %}">{{ producto.nombre }}</a>
+					₡{{ producto.precio }} 
+			{% else %}
+			{% endif %}
+		{% endfor %}
+-->
 
 
 
