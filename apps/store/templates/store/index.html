@@ -22,7 +22,7 @@ li a {
     display: inline-block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 11px 16px;
     text-decoration: none;
 }
 li a:hover:not(.active) {
@@ -35,9 +35,9 @@ li a:hover:not(.active) {
 	display:inline-block;
     float:left
     position:absolute;
-    left:10px;
+    left:1px;
     top:1px;
-    margin: 0px 1px 1px 0px;
+    margin: 0px 0px 0px 0px;
     float: left;
 }
 </style>
@@ -96,7 +96,25 @@ li a:hover:not(.active) {
 
 </head>
 <body>
-<h2>Bienvenido a El Baratico, {{ user.get_full_name }}!</h2>
+<!--h2>Bienvenido a El Baratico, {{ user.get_full_name }}!</h2-->
+<title>El Baratico Web</title>
+<meta name="viewport" content="width=device-width, initial-scale=1 padding-bottom=0">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+<div class="w3-content w3-display-container">
+<div class="w3-display-container mySlides">
+  <img src="/apps/store/static/sea_header.JPG" style="width:100%" height="100">
+  <div class="w3-display-middle w3-large w3-container w3-padding-16 w3-black">
+	{% if user.get_full_name %}
+		Bienvenido a El Baratico, {{ user.get_full_name }}
+    {% else %}
+		Bienvenido a El Baratico, {{ user.get_username }} 
+	{% endif %}
+  </div>
+</div>
+</div>
+
+
 
 <div class="grid-container">
   <div class="item1"><ul>
@@ -105,7 +123,9 @@ li a:hover:not(.active) {
   <li><a href="#contact">Contact</a></li>
   <li><a href="{% url 'logout' %}">Logout</a></li>>
   <li><a {{ user.get_full_name }}></a></li>
-  <li style="float:right"><a class="active" href="#about">About</a></li>
+  <li style="float:right"><a class="active" 
+  href="#cart">Shopping Cart
+  <img src="/apps/store/static/cart.png" alt="Cart" width="50" height="50"></a></li>
 </ul>
 </div>
 
