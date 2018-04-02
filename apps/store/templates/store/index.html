@@ -41,11 +41,11 @@ li a:hover:not(.active) {
     float: left;
 }
 </style>
-<!------------------------END MENU STYLE------------------------>
+<!--ND MENU STYLE->
 
 
 
-<!-------------------------GRID STYLE------------------------>
+<!-GRID STYLE-->
 <style>
 .item1 { grid-area: header; }
 .item2 { grid-area: menu; }
@@ -70,10 +70,10 @@ li a:hover:not(.active) {
   font-size: 30px;
 }
 </style>
-<!-------------------------END GRID STYLE------------------------>
+<!--=-END GRID STYLE-->
 
 
-<!-------------------------PRODUCT GRID STYLE------------------------>
+<!---PRODUCT GRID STYLE-->
 <style>
 .grid-container2 {
   display: grid;
@@ -89,14 +89,14 @@ li a:hover:not(.active) {
   text-align: center;
 }
 </style>
-<!-------------------------END PRODUCT GRID STYLE------------------------>
+<!---END PRODUCT GRID STYLE-->
 
 
 
 
 </head>
 <body>
-
+<h2>Bienvenido a El Baratico, {{ user.get_full_name }}!</h2>
 
 <div class="grid-container">
   <div class="item1"><ul>
@@ -104,12 +104,8 @@ li a:hover:not(.active) {
   <li><a href="#news">News</a></li>
   <li><a href="#contact">Contact</a></li>
   <li><a href="#ingresar">Ingresar</a></li>
-<<<<<<< HEAD
   <li><a {{ user.get_full_name }}></a></li>
   <li style="float:right"><a class="active" href="#about">About</a></li>
-=======
-  <li style="float:right"><a class="active" href="#carrito">Carrito</a></li>
->>>>>>> origin/master
 </ul>
 </div>
 
