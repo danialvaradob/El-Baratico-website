@@ -1,23 +1,56 @@
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
 <!DOCTYPE html>
 <html>
 <head>
+
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    margin-bottom: 0
+}
+li {
+    float: left;
+}
+li a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+li a:hover:not(.active) {
+    background-color: #111;
+}
+.active {
+    background-color: #4CAF50;
+}
+</style>
   <meta charset="utf-8">
   <title>{% block title %}El Baratico{% endblock %}</title>
 </head>
-<body>
   <header>
-    <h1>El Baratico</h1>
-    {% if user.is_authenticated %}
-      Hi {{ user.username }}!
-      <a href="{% url 'logout' %}">Logout</a>
-    {% else %}
-      <a href="{% url 'login' %}">-- Login --</a>
-      <a href="{% url 'signup' %}">-- Signup -- </a>
-      
-    {% endif %}
+    <h1><img class="logo-img" src="/apps/store/static/baraticoCLOUD.gif" alt="El Baratico" width="200"</h1>
   </header>
   <hr>
   <main>
+  <div class="grid-container">
+  <div class="item1"><ul>
+{% if user.is_authenticated %}
+      Hi {{ user.username }}!
+      <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+      <a href="{% url 'login' %}"> Login    </a>
+      <a href="{% url 'signup' %}">    Signup </a>
+     {% endif %}
+ 
+</ul>
+</div>
     {% block content %}
     {% endblock %}
   </main>
