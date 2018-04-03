@@ -44,11 +44,23 @@ def product_detail(request,id,slug):
                     {'producto':producto})
 
 
-def cart_list(request):
-    userID = None
-    if request.user.is_authenticated():
-        userID = request.user.id
+def shopping_cart_list(request):
+    userID = request.user.id
+    shopping_cart = get_object_or_404(Carrito,idUsuario = userID)
+    cart_details = Carrito_Detalle.objects.filter(idCarrito = shopping_cart.id)
+    productos = []
+    for detail in cart_details:
+        productos += get_object_or_404(Producto,id = detail.idProducto)
+    return render(request,'apps/store/shopping_cart.html',{'productos':productos})
 
+
+'''def shopping_cart_list(request):
+    userID = request.user.id
+    shopping_cart = get_object_or_404(Carrito,idUsuario = userID)
+    cart_details = Carrito_Detalle.objects.filter(idCarrito = shopping_cart.id)
+    productos = get_object_or_404(Producto,id = cart_details.idProducto)
+    return render(request,'apps/store/shopping_cart.html',{'productos':productos})
+'''
 
 
 def detail(request, producto_id):
