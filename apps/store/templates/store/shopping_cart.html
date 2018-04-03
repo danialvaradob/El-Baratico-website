@@ -1,63 +1,154 @@
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<!-------------------------MENU STYLE------------------------>
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    margin-bottom: 0
+}
+li {
+    float: left;
+}
+li a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+li a:hover:not(.active) {
+    background-color: #111;
+}
+.active {
+    background-color: #4CAF50;
+}
+.logo-img {
+	display:inline-block;
+    float:left
+    position:absolute;
+    left:10px;
+    top:1px;
+    margin: 0px 1px 1px 0px;
+    float: left;
+}
+</style>
+<!------------------------END MENU STYLE------------------------>
+
+
+
+<!-------------------------GRID STYLE------------------------>
+<style>
+.item1 { grid-area: header; }
+.item2 { grid-area: menu; }
+.item3 { grid-area: main; }
+.item4 { grid-area: right; }
+.item5 { grid-area: footer; }
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'header header header header header header'
+    'menu main main main main main'
+    'menu footer footer footer footer footer';
+  grid-gap: 1px;
+  background-color: rgba(255, 255, 255);
+  padding: 10px;
+}
+.grid-container > div {
+  background-color: rgba(255, 255, 255);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
+</style>
+<!-------------------------END GRID STYLE------------------------>
+
+
+<!-------------------------PRODUCT GRID STYLE------------------------>
+<style>
+.grid-container2 {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: rgba(255, 255, 255);
+  padding: 10px;
+}
+.grid-item2 {
+  background-color: rgba(255, 255, 255);
+  border: 0px solid rgba(0, 0, 0);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+</style>
+<!-------------------------END PRODUCT GRID STYLE------------------------>
+
+
+
+
 </head>
 <body>
 
-<ul>
-  
+
+<div class="grid-container">
+  <div class="item1"><ul>
   <li><a href="#home">Home</a></li>
-  <li><a href="#apps/store/shoping_cart.html">Shopping Cart</a></li>
+  <li><a href="#news">News</a></li>
   <li><a href="#contact">Contact</a></li>
   <li><a href="#ingresar">Ingresar</a></li>
-  <li style="float:right"><a class="active" href="#about">About</a></li>
+  <li style="float:right"><a class="active" href="#carrito">Carrito</a></li>
 </ul>
-<img class="logo-img" src="/apps/store/static/baraticoCLOUD.gif" alt="El Baratico" width="18%" height="50%">
+</div>
+
+
+  <div class="item2"><img class="logo-img" src="/apps/store/static/baraticoCLOUD.gif" alt="El Baratico" width="400" height="500"></div>
+  <table style="width:100%">
+  <tr>
+    <th>Cantidad</th>
+    <th>Producto</th> 
+    <th>Precio Unitario</th>
+    <th>Precio Total</th>
+  </tr>
+  {% if productos %}
+    {% for producto in productos %}
+      <tr>
+        <th> 1 </th>
+        <th> {{ producto.nombre }} </th> 
+        <th> {{ producto.precio }} </th>
+        <th> {{ producto.precio }} </th>
+      </tr>
+    {% endfor %}
+  {% else %}
+  {% endif %}
+
+</table>
+
+
 </body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+
+
+
+
+</head>
+
 
 <body>
-	<div
-	<h1 style="color:blue;margin-left:10px;"></h1>
-<img class="logo-img" src="/apps/store/static/ProductosBanner6.png" alt="Productos" width="500" height="100"><br>
-</div>
-{% if carrito %}
-    {% for producto in carrito %}
-		{% if not producto.oferta %}
-		<div class="item">
-			<a href="{% url 'store:detail' producto.id %}">
-				<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="200" height="200">
-			</a>
-			<a href="{% url 'store:detail' producto.id %}">{{ producto.nombre }}</a>
-			₡{{ producto.precio }}
-		</div>
-		{% else %}
-		{% endif %}
-    {% endfor %}
-  
-{% for producto in productos %}
-	{% if producto.oferta %}
-		<body>
-			<div
-			<h1 style="color:blue;margin-left:10px;"></h1>
-		<img class="logo-img" src="/apps/store/static/OfertasBanner.png" alt="Productos" width="500" height="100"><br>
-		</div>
-		</body>
-
-			<div class="offer_item">
-			<a href="{% url 'store:detail' producto.id %}">
-				<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="200" height="200">
-			</a>
-			<a href="{% url 'store:detail' producto.id %}">{{ producto.nombre }}</a>
-			₡{{ producto.precio }} 
-	{% else %}
-	{% endif %}
-{% endfor %}
-   
-
-
-    
-{% else %}
-    <p>No products are available.</p>
-{% endif %}
-
-
 
 
 
