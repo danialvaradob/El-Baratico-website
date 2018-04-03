@@ -75,8 +75,8 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 
-def carrito_detalle(request,id,slug):
-	x = 0
+def carrito_detalle(request):
+    return render(request, 'shopping_cart.html')
 
 
 

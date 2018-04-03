@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/login'}, name='logout'),
+    url(r'^carrito_detalle/$', views.carrito_detalle, name='carrito_detalle'),
     path('<int:producto_id>/', views.detail, name='detail'),
     path('<int:producto_id>/', views.DetailView.as_view(), name='detail'),
     url(r'^(?P<category_slug>[-\w]+)/$',views.product_list, name='product_list_by_category'),

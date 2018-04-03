@@ -124,7 +124,7 @@ li a:hover:not(.active) {
   <li><a href="{% url 'logout' %}">Logout</a></li>>
   <li><a {{ user.get_full_name }}></a></li>
   <li style="float:right"><a class="active" 
-  href="#cart">Shopping Cart
+  href="{% url 'store:carrito_detalle' %}">Shopping Cart
   <img src="/apps/store/static/cart.png" alt="Cart" width="50" height="50"></a></li>
 </ul>
 </div>
