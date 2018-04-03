@@ -193,16 +193,22 @@ li a:hover:not(.active) {
 </html>
 
 
-
-<!DOCTYPE html>
-<html>
-<head>
-
-
-
-
-
-</head>
+		Historial de compras:
+		{% for histo in historial %}
+		
+			{% if histo %}
+			
+					 Producto: {{ histo.idProducto.nombre }} <br>
+			{% else %}
+			{% endif %}
+		{% endfor %}
+		
+		
+		
+		
+		{% for fech in fecha %}
+		Fecha: {{ fech.idUsuario.nombre}}
+		{% endfor %}
 
 
 <body>
@@ -212,23 +218,8 @@ li a:hover:not(.active) {
 
 </html>
 
-<!--
-		{% for producto in productos %}
-			{% if producto.oferta %}
-				<body>
 
-				</body>
 
-					<div class="grid-item2">
-					<a href="{% url 'store:detail' producto.id %}">
-						<img src="{{producto.imagen.url}}" alt={{producto.nombre}} width="200" height="200">
-					</a>
-					<a href="{% url 'store:detail' producto.id %}">{{ producto.nombre }}</a>
-					₡{{ producto.precio }} 
-			{% else %}
-			{% endif %}
-		{% endfor %}
--->
 
 
 

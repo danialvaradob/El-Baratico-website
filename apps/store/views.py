@@ -3,10 +3,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import  authenticate
 from django.contrib.auth import login as auth_login
 from django.http import HttpResponse
-from .models import Producto,Categoria, Carrito, Carrito_Detalle
+from .models import Producto,Categoria, Carrito, Carrito_Detalle, Historial, Historial_Detalle
 from django.views import generic
 from .forms import SignUpForm
 from django.views.decorators.csrf import csrf_protect
+import datetime
 # Create your views here.
 
 
@@ -14,7 +15,8 @@ from django.views.decorators.csrf import csrf_protect
 @login_required
 def index(request):
     product_list = Producto.objects.order_by('-id')
-    context = {'product_list': product_list}
+    historial_list = Historial.objects.filter(idUsuario = request.user)
+    context = {'product_list': product_list, 'historial_list': historial_list}
     return render(request, 'store/index.html', context)
     #return render(request, 'store/image_test.html', context)
 
@@ -27,13 +29,20 @@ def product_list(request,category_slug = None):
     categoria = None
     categorias = Categoria.objects.all()
     productos = Producto.objects.filter(stock__gt = 0)
+    histo = Historial.objects.filter(idUsuario = request.user)
+    fechas = []
+    historial = []
+    for i in histo:
+        fechas += [i]
+        historial += Historial_Detalle.objects.filter(idHistorial = i)
     if category_slug:
         categoria = get_object_or_404(Categoria,slug = category_slug)
         productos = productos.filter(idCategoria = categoria)
 
     return render(request,'store/index.html',{'idCategoria':categoria,
                                                             'categorias':categorias,
-                                                            'productos':productos})
+                                                            'productos':productos,
+                                              'historial': historial, 'fechas': fechas})
 
 
 def product_detail(request,id,slug):
@@ -99,18 +108,14 @@ def carrito_detalle(request):
     userID = request.user.id
 
     shopping_cart = get_object_or_404(Carrito,idUsuario = userID)
-    print("EL IDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD " + str(userID))
     cart_details = Carrito_Detalle.objects.filter(idCarrito = shopping_cart.id)
     productos = []
     for detail in cart_details:
-        print("EL IDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD " + str(detail.idProducto))
         productos += [get_object_or_404(Producto,id = detail.idProducto.id)]
     return render(request, 'shopping_cart.html', {'productos': productos})
 
 
 def agregar_producto(request, producto_id):
-    print(producto_id)
-
     producto = get_object_or_404(Producto, pk=producto_id)
     producto.stock = producto.stock - 1
     producto.save()
@@ -123,11 +128,30 @@ def agregar_producto(request, producto_id):
 
 def delete_cart_item(request,producto_id):
     userID= request.user.id
+    
+    producto = get_object_or_404(Producto, pk=producto_id)
+    producto.stock = producto.stock + 1
+    producto.save()
+    
     shopping_cart = get_object_or_404(Carrito,idUsuario = userID)
     detail = Carrito_Detalle.objects.filter(idCarrito = shopping_cart.id , idProducto = producto_id)
     #detail =get_object_or_404(Carrito_Detalle, idCarrito = shopping_cart.id , idProducto = producto_id)
     for item in detail:
         if item:
+            item.delete()
+    return redirect('/home.html')
+
+def delete_all_cart_items(request):
+    userID= request.user.id
+    shopping_cart = get_object_or_404(Carrito,idUsuario = userID)
+    h = Historial(idUsuario=request.user, fecha=datetime.date.today())
+    h.save()
+    
+    detail = Carrito_Detalle.objects.all()
+    for item in detail:
+        if item:
+            hd = Historial_Detalle(idHistorial=h, idProducto=item.idProducto, cantidad=1)
+            hd.save()
             item.delete()
     return redirect('/home.html')
 

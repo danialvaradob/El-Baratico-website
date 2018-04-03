@@ -6,8 +6,8 @@ from . import views
 
 
 urlpatterns = [
-	#url(r'^login/store/index.html$', views.product_list, name='product_list'),
     url(r'^home.html$', views.product_list, name='product_list'),
+    url(r'^delete_all_cart_items/$', views.delete_all_cart_items, name='delete_all_cart_items'),
     url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/login'}, name='logout'),
