@@ -100,7 +100,7 @@ li a:hover:not(.active) {
 
 <div class="grid-container">
   <div class="item1"><ul>
-  <li><a href="#home">Home</a></li>
+  <li><a href="/home.html">Home</a></li>
   <li><a href="#news">News</a></li>
   <li><a href="#contact">Contact</a></li>
   <li><a href="#ingresar">Ingresar</a></li>
@@ -116,6 +116,7 @@ li a:hover:not(.active) {
     <th>Producto</th> 
     <th>Precio Unitario</th>
     <th>Precio Total</th>
+    <th>Eliminar producto</th>
   </tr>
   {% if productos %}
     {% for producto in productos %}
@@ -124,6 +125,7 @@ li a:hover:not(.active) {
         <th> {{ producto.nombre }} </th> 
         <th> {{ producto.precio }} </th>
         <th> {{ producto.precio }} </th>
+        <th> <a href="{% url 'store:delete_cart_item' producto.id %}">   Eliminar </a> </th> 
       </tr>
     {% endfor %}
   {% else %}

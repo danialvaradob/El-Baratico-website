@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, {'next_page': '/login'}, name='logout'),
     url(r'^carrito_detalle/$', views.carrito_detalle, name='carrito_detalle'),
     path(r'^agregar_producto/(<int:producto_id>)/$', views.agregar_producto, name='agregar_producto'),
+    path(r'^delete_cart_item/(<int:producto_id>)/', views.delete_cart_item, name='delete_cart_item'),
     path('<int:producto_id>/', views.detail, name='detail'),
     path('<int:producto_id>/', views.DetailView.as_view(), name='detail'),
     url(r'^(?P<category_slug>[-\w]+)/$',views.product_list, name='product_list_by_category'),

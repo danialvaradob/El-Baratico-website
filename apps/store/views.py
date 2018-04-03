@@ -121,6 +121,16 @@ def agregar_producto(request, producto_id):
     cd.save()
     return redirect('/home.html')
 
+def delete_cart_item(request,producto_id):
+    userID= request.user.id
+    shopping_cart = get_object_or_404(Carrito,idUsuario = userID)
+    detail = Carrito_Detalle.objects.filter(idCarrito = shopping_cart.id , idProducto = producto_id)
+    #detail =get_object_or_404(Carrito_Detalle, idCarrito = shopping_cart.id , idProducto = producto_id)
+    for item in detail:
+        if item:
+            item.delete()
+    return redirect('/home.html')
+
 '''
 <!DOCTYPE html>
 <html lang="en">
