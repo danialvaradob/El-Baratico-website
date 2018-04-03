@@ -46,7 +46,7 @@ class Producto(models.Model):
                 return reverse('store:product_detail',args = [self.id,self.slug])
 
 class Carrito(models.Model):
-        idUsuario = models.ForeignKey(User, on_delete = models.CASCADE)
+        idUsuario = models.ForeignKey(User, on_delete = models.CASCADE, null=True)
 
 class Carrito_Detalle(models.Model):
         idCarrito = models.ForeignKey(Carrito, on_delete = models.CASCADE)

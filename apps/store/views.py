@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import  authenticate
 from django.contrib.auth import login as auth_login
 from django.http import HttpResponse
-from .models import Producto,Categoria
+from .models import Producto,Categoria, Carrito, Carrito_Detalle
 from django.views import generic
 from .forms import SignUpForm
 from django.views.decorators.csrf import csrf_protect
@@ -69,16 +69,45 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             auth_login(request, user)
+            c = Carrito(idUsuario=user)
+            c.save()
             return redirect('/home.html')
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
 
-
+'''
 def carrito_detalle(request):
-    return render(request, 'shopping_cart.html')
+
+    productos = Producto.objects.filter(stock__gt = 0)
+
+    return render(request, 'shopping_cart.html', {'productos': productos})
+'''
+def carrito_detalle(request):
+    userID = request.user.id
+
+    shopping_cart = get_object_or_404(Carrito,idUsuario = userID)
+    print("EL IDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD " + str(userID))
+    cart_details = Carrito_Detalle.objects.filter(idCarrito = shopping_cart.id)
+    productos = []
+    for detail in cart_details:
+        print("EL IDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD " + str(detail.idProducto))
+        productos += [get_object_or_404(Producto,id = detail.idProducto.id)]
+    return render(request, 'shopping_cart.html', {'productos': productos})
 
 
+def agregar_producto(request, producto_id):
+    print(producto_id)
+
+    producto = get_object_or_404(Producto, pk=producto_id)
+    producto.stock = producto.stock - 1
+    producto.save()
+
+    userID = request.user.id
+    shopping_cart = get_object_or_404(Carrito,idUsuario = userID)
+    cd = Carrito_Detalle(idCarrito=shopping_cart, idProducto=producto, cantidad=1)
+    cd.save()
+    return redirect('/home.html')
 
 '''
 <!DOCTYPE html>
